@@ -18,6 +18,6 @@ io.on('connection', (socket) => {
         io.to(data.room_id).emit('message-to-app', data);
     });
 });
-server.listen(3000, () => {
+server.listen(process.env.PORT || 3000, () => {
     console.log('listening on http://localhost:3000');
 });
