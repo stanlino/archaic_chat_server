@@ -6,4 +6,5 @@ export interface IRoomsRepository {
   leaveRoom(room_id: string, socket_id: string): void;
   findRoom(room_id: string): Room | undefined;
   allRooms(): Room[];
+  getRoomBySocketId(socket_id: string): Room | undefined;
 }

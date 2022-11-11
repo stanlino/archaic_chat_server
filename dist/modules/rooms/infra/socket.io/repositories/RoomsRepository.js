@@ -36,5 +36,8 @@ class RoomsRepository {
     allRooms() {
         return this.rooms;
     }
+    getRoomBySocketId(socket_id) {
+        return this.rooms.find(room => room.users.find(user => user.socket_id === socket_id));
+    }
 }
 exports.RoomsRepository = RoomsRepository;

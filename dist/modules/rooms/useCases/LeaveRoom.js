@@ -15,10 +15,11 @@ let LeaveRoomUseCase = class LeaveRoomUseCase {
     constructor(roomsRepository) {
         this.roomsRepository = roomsRepository;
     }
-    execute({ socket_id, room_id }) {
-        const room = this.roomsRepository.findRoom(room_id);
+    execute({ socket_id }) {
+        const room = this.roomsRepository.getRoomBySocketId(socket_id);
         if (room) {
-            this.roomsRepository.leaveRoom(room_id, socket_id);
+            this.roomsRepository.leaveRoom(room.id, socket_id);
+            return room.id;
         }
     }
 };

@@ -19,7 +19,7 @@ const leaveRoomController = new LeaveRoomController()
 app.use(router)
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log('a user connected', socket.id);
 
   socket.on('join-room', ({ room_id, username }) => {
     if (!room_id || !username) {
@@ -27,30 +27,32 @@ io.on('connection', (socket) => {
     }
 
     socket.join(room_id);
+
     joinRoomController.handle({
       socket_id: socket.id,
       room_id,
       username,
     })
+
+    socket.to(room_id).emit('user-connected', username);
   })
 
   socket.on('message-to-server', (data) => {
     io.to(data.room_id).emit('message-to-app', data);
   });
 
-  socket.on('leave-room', ({ room_id, username }) => {
-    socket.leave(room_id);
-    leaveRoomController.handle({
+  socket.on('disconnect', () => {
+    const room_id = leaveRoomController.handle({
       socket_id: socket.id,
-      room_id,
     })
 
-    io.to(room_id).emit('user-left', username);
-  })
+    socket.leave(room_id);
 
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
+    io.to(room_id).emit('user-left', socket.id);
+
+    console.log('user disconnected from room', room_id);
   });
+
 });
 
 server.listen(process.env.PORT || 3000, () => {

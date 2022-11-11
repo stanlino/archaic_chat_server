@@ -44,4 +44,12 @@ export class RoomsRepository implements IRoomsRepository {
   allRooms(): Room[] {
     return this.rooms;
   }
+
+  getRoomBySocketId(socket_id: string): Room | undefined {
+    return this.rooms.find(
+      room => room.users.find(
+        user => user.socket_id === socket_id
+      )
+    );
+  }
 }
