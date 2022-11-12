@@ -5,6 +5,6 @@ export class CreateUserController {
   handle(socket_id: string, username: string): void {
     const createUserUseCase = container.resolve(RegisterUserUseCase);
 
-    createUserUseCase.execute(socket_id, username);
+    createUserUseCase.execute({ socket_id, username });
   }
 }
