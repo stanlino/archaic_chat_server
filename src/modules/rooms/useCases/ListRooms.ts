@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 import { Room } from '../entities/Room';
-import { IRoomsRepository } from '../repositories/IRoomsRepository';
+import { IRoomsRepository } from '../repositories-in-memory/IRoomsRepository';
 
 @injectable()
 export class ListRoomsUseCase {

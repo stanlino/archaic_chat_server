@@ -1,5 +1,5 @@
-import { Room } from "../../../entities/Room";
-import { IRoomsRepository } from "../../../repositories/IRoomsRepository";
+import { Room } from "../entities/Room";
+import { IRoomsRepository } from "./IRoomsRepository";
 
 export class RoomsRepository implements IRoomsRepository {
   private rooms: Room[] = [];

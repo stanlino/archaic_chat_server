@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { User } from "../entities/User";
-import { IUsersRepository } from "../repositories/IUsersRepository";
+import { IUsersRepository } from "../repositories-in-memory/IUsersRepository";
 
 @injectable()
 export class GetUserUseCase {

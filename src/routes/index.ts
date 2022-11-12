@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { roomsRoutes } from './room.routes'
+import { roomsRoutes } from './rooms.routes'
 
 const router = Router()
 

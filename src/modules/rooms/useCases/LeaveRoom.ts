@@ -1,6 +1,6 @@
 import { injectable, inject } from "tsyringe";
 
-import { IRoomsRepository } from "../repositories/IRoomsRepository";
+import { IRoomsRepository } from "../repositories-in-memory/IRoomsRepository";
 
 interface LeaveRoomRequest {
   socket_id: string;

@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { IUsersRepository } from "../repositories/IUsersRepository";
+import { IUsersRepository } from "../repositories-in-memory/IUsersRepository";
 
 @injectable()
 export class DeleteUserUseCase {
