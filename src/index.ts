@@ -8,6 +8,9 @@ import './shared/container';
 import { router } from './routes';
 import { JoinRoomController } from './modules/rooms/controllers/JoinRoom';
 import { LeaveRoomController } from "./modules/rooms/controllers/LeaveRoom";
+import { CreateUserController } from "./modules/users/controllers/CreateUser";
+import { GetUserController } from "./modules/users/controllers/GetUser";
+import { DeleteUserController } from "./modules/users/controllers/DeleteUser";
 
 const app = express();
 const server = http.createServer(app);
@@ -15,6 +18,9 @@ const io = new Server(server);
 
 const joinRoomController = new JoinRoomController()
 const leaveRoomController = new LeaveRoomController()
+const createUserController = new CreateUserController()
+const getUserController = new GetUserController()
+const deleteUserController = new DeleteUserController()
 
 app.use(router)
 
@@ -34,6 +40,8 @@ io.on('connection', (socket) => {
       username,
     })
 
+    createUserController.handle(socket.id, username)
+
     socket.to(room_id).emit('user-connected', username);
   })
 
@@ -48,7 +56,11 @@ io.on('connection', (socket) => {
 
     socket.leave(room_id);
 
-    io.to(room_id).emit('user-left', socket.id);
+    const user = getUserController.handle(socket.id)
+
+    io.to(room_id).emit('user-left', user?.username);
+
+    deleteUserController.handle(socket.id)
 
     console.log('user disconnected from room', room_id);
   });
