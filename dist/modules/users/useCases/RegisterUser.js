@@ -15,7 +15,7 @@ let RegisterUserUseCase = class RegisterUserUseCase {
     constructor(usersRepository) {
         this.usersRepository = usersRepository;
     }
-    execute(socket_id, username) {
+    execute({ socket_id, username }) {
         this.usersRepository.registerUser(socket_id, username);
     }
 };
